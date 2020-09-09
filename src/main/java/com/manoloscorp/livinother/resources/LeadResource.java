@@ -1,6 +1,6 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.entities.AppUser;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
 import org.springframework.http.HttpStatus;
@@ -28,32 +28,32 @@ public class LeadResource {
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getLeads() {
-    List<User> userList = userService.getAllUsers();
-    return new ResponseEntity<List>(userList, HttpStatus.OK);
+    List<AppUser> appUserList = userService.getAllUsers();
+    return new ResponseEntity<List>(appUserList, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<?>  getLeadById(@PathVariable Long id) {
-    User user = userService.getUserById(id);
-    return ResponseEntity.ok().body(user);
+    AppUser appUser = userService.getUserById(id);
+    return ResponseEntity.ok().body(appUser);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<User> createLead(@RequestBody User user){
-    userService.saveUser(user);
+  public ResponseEntity<AppUser> createLead(@RequestBody AppUser appUser){
+    userService.saveUser(appUser);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(user.getId())
+            .buildAndExpand(appUser.getId())
             .toUri();
-    return ResponseEntity.created(uri).body(user);
+    return ResponseEntity.created(uri).body(appUser);
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<User> updateLead(@PathVariable Long id, @RequestBody User user) {
-    user = userService.updateUser(id, user);
-    return ResponseEntity.ok().body(user);
+  public ResponseEntity<AppUser> updateLead(@PathVariable Long id, @RequestBody AppUser appUser) {
+    appUser = userService.updateUser(id, appUser);
+    return ResponseEntity.ok().body(appUser);
   }
 }

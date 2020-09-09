@@ -1,7 +1,6 @@
 package com.manoloscorp.livinother.services;
 
 import com.manoloscorp.livinother.entities.Faq;
-import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.repositories.FaqRepository;
 import com.manoloscorp.livinother.shared.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;

@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "TB_USER")
 @Data
-public class User implements Serializable {
+public class AppUser implements Serializable {
 
   private static final long serialVersionUID = -1299061206641026380L;
 
@@ -29,7 +29,6 @@ public class User implements Serializable {
   @Column(name = "PASSWORD", nullable = false, length = 255)
   private String password;
 
-
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "DT_BIRTH")
   private Date dataNascimento = new Date();
@@ -39,7 +38,6 @@ public class User implements Serializable {
 
   @Column(name = "TP_USER", nullable = false)
   private UserType userType;
-
 
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @MapsId

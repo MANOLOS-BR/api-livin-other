@@ -1,18 +1,21 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.entities.AppUser;
 import com.manoloscorp.livinother.shared.exceptions.NotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
 public interface UserService {
 
-  List<User> getAllUsers();
+  List<AppUser> getAllUsers();
 
-  User getUserById(Long id) throws NotFoundException;
+  AppUser getUserById(Long id) throws NotFoundException;
 
-  User saveUser(User user);
+  UserDetails findByEmail(String email);
 
-  User updateUser(Long id, User user);
+  AppUser saveUser(AppUser appUser);
+
+  AppUser updateUser(Long id, AppUser appUser);
 
 }
