@@ -1,6 +1,7 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.AppUser;
+import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(RestConstants.APPLICATION_API + RestConstants.RESOURCE_LEADS)
+@RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_LEADS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class LeadResource {
 
   /*
@@ -26,34 +27,42 @@ public class LeadResource {
     this.userService = userService;
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<?> getLeads() {
-    List<AppUser> appUserList = userService.getAllUsers();
-    return new ResponseEntity<List>(appUserList, HttpStatus.OK);
+    List<User> userList = userService.getAllUsers();
+    return new ResponseEntity<List>(userList, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<?>  getLeadById(@PathVariable Long id) {
-    AppUser appUser = userService.getUserById(id);
-    return ResponseEntity.ok().body(appUser);
+    User user = userService.getUserById(id);
+    return ResponseEntity.ok().body(user);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<AppUser> createLead(@RequestBody AppUser appUser){
-    userService.saveUser(appUser);
+  public ResponseEntity<?> createLead(@RequestBody User user){
+
+    if (userService.existsUserByEmail(user.getEmail())){
+      return ResponseEntity
+              .badRequest()
+              .body(new MessageResponse("Error: Email is already in use!"));
+    }
+
+    userService.saveUser(user);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(appUser.getId())
+            .buildAndExpand(user.getId())
             .toUri();
-    return ResponseEntity.created(uri).body(appUser);
+
+    return ResponseEntity.created(uri).body(new MessageResponse("User registered successfully!"));
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<AppUser> updateLead(@PathVariable Long id, @RequestBody AppUser appUser) {
-    appUser = userService.updateUser(id, appUser);
-    return ResponseEntity.ok().body(appUser);
+  public ResponseEntity<User> updateLead(@PathVariable Long id, @RequestBody User user) {
+    user = userService.updateUser(id, user);
+    return ResponseEntity.ok().body(user);
   }
 }

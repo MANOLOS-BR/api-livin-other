@@ -1,6 +1,8 @@
 package com.manoloscorp.livinother.configuration.security.jwt;
 
+import com.manoloscorp.livinother.configuration.security.services.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtRequestFilter extends OncePerRequestFilter {
+public class AuthTokenFilter extends OncePerRequestFilter {
 
-  private JwtUserDetailsService jwtUserDetailsService;
+//  @Autowired
+  private UserDetailsServiceImpl jwtUserDetailsServiceImpl;
+
+//  @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
-  public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
-    this.jwtUserDetailsService = jwtUserDetailsService;
+  public AuthTokenFilter() {
+  }
+
+  public AuthTokenFilter(UserDetailsServiceImpl jwtUserDetailsServiceImpl, JwtTokenUtil jwtTokenUtil) {
+    this.jwtUserDetailsServiceImpl = jwtUserDetailsServiceImpl;
     this.jwtTokenUtil = jwtTokenUtil;
   }
 
@@ -49,7 +57,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     // Tendo o token, valide o.
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-      UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+      UserDetails userDetails = this.jwtUserDetailsServiceImpl.loadUserByUsername(username);
 
       if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

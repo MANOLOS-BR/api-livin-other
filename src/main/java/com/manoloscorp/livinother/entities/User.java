@@ -1,17 +1,17 @@
 package com.manoloscorp.livinother.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_USER")
 @Data
-public class AppUser implements Serializable {
+public class User implements Serializable {
 
   private static final long serialVersionUID = -1299061206641026380L;
 
@@ -42,5 +42,8 @@ public class AppUser implements Serializable {
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @MapsId
   private MedicalHistory medicalHistory;
+
+//  @OneToMany(mappedBy = "user")
+//  private List<Storie> orders = new ArrayList<>();
 
 }

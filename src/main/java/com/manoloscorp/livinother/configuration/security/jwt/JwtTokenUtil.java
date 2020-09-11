@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,14 +14,16 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-@Service
 public class JwtTokenUtil implements Serializable {
 
   private static final long serialVersionUID = 6982092698644334901L;
+
   @Value("${jwt.secret}")
   private String secret;
 
-  public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+  @Value("${jwt.jwtExpirationMs}")
+  private int jwtExpirationMs;
+
 
   //retorna o username do token jwt
   public String getUsernameFromToken(String token) {
@@ -62,7 +63,7 @@ public class JwtTokenUtil implements Serializable {
             .setClaims(claims)
             .setSubject(subject)
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
             .signWith(SignatureAlgorithm.HS512, secret).compact();
   }
 

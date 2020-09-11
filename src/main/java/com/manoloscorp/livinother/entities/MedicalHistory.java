@@ -40,6 +40,6 @@ public class MedicalHistory implements Serializable {
 
   @JsonIgnore
   @OneToOne(mappedBy = "medicalHistory", cascade = CascadeType.ALL)
-  private AppUser appUser;
+  private User user;
 
 }

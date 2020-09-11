@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(RestConstants.APPLICATION_API + RestConstants.RESOURCE_FAQS)
+@RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_FAQS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FaqResource {
 
   private final FaqServiceImpl faqService;
@@ -22,7 +22,7 @@ public class FaqResource {
     this.faqService = faqService;
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<?> getFaqs() {
     List<Faq> faqList = faqService.getAllFaqs();
     return new ResponseEntity<List>(faqList, HttpStatus.OK);
