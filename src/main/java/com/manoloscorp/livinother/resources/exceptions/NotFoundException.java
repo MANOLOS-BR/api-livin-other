@@ -1,4 +1,4 @@
-package com.manoloscorp.livinother.resources.payload.exceptions;
+package com.manoloscorp.livinother.resources.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

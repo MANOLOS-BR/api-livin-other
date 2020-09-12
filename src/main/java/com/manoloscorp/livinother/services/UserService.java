@@ -1,7 +1,7 @@
 package com.manoloscorp.livinother.services;
 
 import com.manoloscorp.livinother.entities.User;
-import com.manoloscorp.livinother.resources.payload.exceptions.NotFoundException;
+import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 
 import java.util.List;
 
