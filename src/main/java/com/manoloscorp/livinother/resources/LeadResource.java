@@ -1,9 +1,12 @@
 package com.manoloscorp.livinother.resources;
 
 import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.resources.payload.request.UserRequest;
 import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
+import com.manoloscorp.livinother.resources.payload.response.UserResponse;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,22 +21,28 @@ public class LeadResource {
 
 
   private final UserServiceImpl userService;
+  private final ModelMapper mapper;
 
-  public LeadResource(UserServiceImpl userService) {
+  public LeadResource(UserServiceImpl userService, ModelMapper mapper) {
     this.userService = userService;
+    this.mapper = mapper;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createLead(@RequestBody User user){
+  public ResponseEntity<?> createLead(@RequestBody UserRequest userRequest){
 
-    if (userService.existsUserByEmail(user.getEmail())){
+    if (userService.existsUserByEmail(userRequest.getEmail())){
       return ResponseEntity
               .badRequest()
               .body(new MessageResponse("Error: Email is already in use!"));
     }
 
+    User user = mapper.map(userRequest, User.class);
+
     userService.saveUser(user);
+
+    UserResponse userResponse = mapper.map(user, UserResponse.class);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
@@ -41,7 +50,7 @@ public class LeadResource {
             .buildAndExpand(user.getId())
             .toUri();
 
-    return ResponseEntity.created(uri).body(new MessageResponse("User registered successfully!"));
+    return ResponseEntity.created(uri).body(userResponse);
   }
 
 }

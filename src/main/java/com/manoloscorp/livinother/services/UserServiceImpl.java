@@ -3,6 +3,8 @@ package com.manoloscorp.livinother.services;
 import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.repositories.UserRepository;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
+import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +28,16 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getUserById(Long id) {
     Optional<User> user = userRepository.findById(id);
-    return user.orElseThrow(() -> new NotFoundException(id));
+    return user.orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
   }
 
   @Override
   public User saveUser(User user) {
+
     String hashedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
     user.setPassword(hashedPassword);
+
+
     return userRepository.save(user);
   }
 

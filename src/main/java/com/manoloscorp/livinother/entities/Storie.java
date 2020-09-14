@@ -15,7 +15,7 @@ public class Storie {
   @Column(name="ID_STORIE", nullable = false)
   private Long id;
 
-  @ManyToOne(fetch=FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
   @JoinColumn(name="FK_ID_USER")
   private User user;
 

@@ -38,8 +38,4 @@ public class MedicalHistory implements Serializable {
   @Column(name="PRACTICE_PHYSICAL_ACTIVITY", nullable = false)
   private Boolean practicePhysicalActivity;
 
-  @JsonIgnore
-  @OneToOne(mappedBy = "medicalHistory", cascade = CascadeType.ALL)
-  private User user;
-
 }

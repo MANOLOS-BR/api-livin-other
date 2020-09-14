@@ -37,7 +37,12 @@ public class AuthResource {
     final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(authenticationRequest.getUsername());
     final String token = jwtTokenUtil.generateToken(userDetails);
 
-    return ResponseEntity.ok(new JwtResponse(token, "Bearer"));
+    return ResponseEntity.ok(new JwtResponse("Bearer", token));
+  }
+
+  @DeleteMapping("/logout")
+  public ResponseEntity<?> logoutUser(){
+    return ResponseEntity.ok("");
   }
 
   private void authenticate(String username, String password) throws Exception {

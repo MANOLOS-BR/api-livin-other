@@ -1,16 +1,19 @@
 package com.manoloscorp.livinother.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "TB_USER")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
 
   private static final long serialVersionUID = -1299061206641026380L;
@@ -29,9 +32,9 @@ public class User implements Serializable {
   @Column(name = "PASSWORD", nullable = false, length = 255)
   private String password;
 
-  @Temporal(TemporalType.TIMESTAMP)
+//  @Temporal(TemporalType.DATE)
   @Column(name = "DT_BIRTH")
-  private Date dataNascimento = new Date();
+  private LocalDate dataNascimento;
 
   @Column(name = "DS_GENRE", nullable = false, length = 100)
   private String genero;
@@ -39,11 +42,13 @@ public class User implements Serializable {
   @Column(name = "TP_USER", nullable = false)
   private UserType userType;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @MapsId
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private MedicalHistory medicalHistory;
 
-//  @OneToMany(mappedBy = "user")
-//  private List<Storie> orders = new ArrayList<>();
-
+  public void setDataNascimento(String dataNascimento) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate localDate = LocalDate.parse(dataNascimento, formatter);
+    this.dataNascimento = localDate;
+  }
 }

@@ -2,10 +2,13 @@ package com.manoloscorp.livinother.resources;
 
 import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.entities.Storie;
+import com.manoloscorp.livinother.resources.payload.request.StorieRequest;
 import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
+import com.manoloscorp.livinother.resources.payload.response.StorieResponse;
 import com.manoloscorp.livinother.services.StorieServiceImpl;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +24,12 @@ public class StorieResource {
 
   private final StorieServiceImpl storiesService;
   private final UserServiceImpl userService;
+  private final ModelMapper mapper;
 
-  public StorieResource(StorieServiceImpl storiesService, UserServiceImpl userService) {
+  public StorieResource(StorieServiceImpl storiesService, UserServiceImpl userService, ModelMapper mapper) {
     this.storiesService = storiesService;
     this.userService = userService;
+    this.mapper = mapper;
   }
 
   @GetMapping
@@ -35,7 +40,7 @@ public class StorieResource {
 
   @PostMapping("/{id}")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createStories(@PathVariable Long id, @RequestBody Storie storie) {
+  public ResponseEntity<?> createStories(@PathVariable Long id, @RequestBody StorieRequest storieRequest) {
 
     if (!userService.existsUserById(id)){
       return ResponseEntity
@@ -44,9 +49,12 @@ public class StorieResource {
     }
 
     User user = userService.getUserById(id);
-    storie.setUser(user);
+    storieRequest.setUser(user);
 
+    Storie storie = mapper.map(storieRequest, Storie.class);
     storiesService.saveStorie(storie);
+
+    StorieResponse storieResponse = getStorieResponse(storie);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
@@ -54,7 +62,14 @@ public class StorieResource {
             .buildAndExpand(storie.getId())
             .toUri();
 
-    return ResponseEntity.created(uri).body(new MessageResponse("Stories registered successfully!"));
+    return ResponseEntity.created(uri).body(storieResponse);
+  }
+
+  private StorieResponse getStorieResponse(Storie storie) {
+    StorieResponse storieResponse = new StorieResponse();
+    storieResponse.setUser(storie.getUser().getName());
+    storieResponse.setDateCreation(storie.getDateCreation());
+    return storieResponse;
   }
 
 }

@@ -1,8 +1,10 @@
 package com.manoloscorp.livinother.resources;
 
 import com.manoloscorp.livinother.entities.Faq;
+import com.manoloscorp.livinother.resources.payload.request.FaqRequest;
 import com.manoloscorp.livinother.services.FaqServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,11 @@ import java.util.List;
 public class FaqResource {
 
   private final FaqServiceImpl faqService;
+  private final ModelMapper mapper;
 
-  public FaqResource(FaqServiceImpl faqService) {
+  public FaqResource(FaqServiceImpl faqService, ModelMapper mapper) {
     this.faqService = faqService;
+    this.mapper = mapper;
   }
 
   @GetMapping
@@ -36,7 +40,10 @@ public class FaqResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createFaq(@RequestBody Faq faq){
+  public ResponseEntity<?> createFaq(@RequestBody FaqRequest faqRequest){
+
+    Faq faq = mapper.map(faqRequest, Faq.class);
+
     faqService.saveFaq(faq);
 
     URI uri = ServletUriComponentsBuilder
@@ -45,7 +52,7 @@ public class FaqResource {
             .buildAndExpand(faq.getId())
             .toUri();
 
-    return ResponseEntity.created(uri).body(faq);
+    return ResponseEntity.created(uri).body(faqRequest);
   }
 
   @PutMapping(value = "/{id}")
