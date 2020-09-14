@@ -1,10 +1,9 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.entities.Storie;
+import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.resources.payload.request.StorieRequest;
 import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
-import com.manoloscorp.livinother.resources.payload.response.StorieResponse;
 import com.manoloscorp.livinother.services.StorieServiceImpl;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
@@ -13,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,7 +35,7 @@ public class StorieResource {
     return new ResponseEntity<List>(storieList, HttpStatus.OK);
   }
 
-  @PostMapping("/{id}")
+  @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<?> createStories(@PathVariable Long id, @RequestBody StorieRequest storieRequest) {
 
@@ -49,27 +46,29 @@ public class StorieResource {
     }
 
     User user = userService.getUserById(id);
-    storieRequest.setUser(user);
+//    storieRequest.setUser(mapper.map(user, UserResponse.class));
 
-    Storie storie = mapper.map(storieRequest, Storie.class);
-    storiesService.saveStorie(storie);
+//    Storie storie = mapper.map(storieRequest, Storie.class);
 
-    StorieResponse storieResponse = getStorieResponse(storie);
+//    storiesService.saveStorie(storie);
 
-    URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(storie.getId())
-            .toUri();
+//    StorieResponse storieResponse = getStorieResponse(storie);
 
-    return ResponseEntity.created(uri).body(storieResponse);
+//    URI uri = ServletUriComponentsBuilder
+//            .fromCurrentRequest()
+//            .path("/{id}")
+//            .buildAndExpand(storie.getId())
+//            .toUri();
+
+//    return ResponseEntity.created(uri).body(storieResponse);
+    return null;
   }
 
-  private StorieResponse getStorieResponse(Storie storie) {
-    StorieResponse storieResponse = new StorieResponse();
-    storieResponse.setUser(storie.getUser().getName());
-    storieResponse.setDateCreation(storie.getDateCreation());
-    return storieResponse;
-  }
+//  private StorieResponse getStorieResponse(Storie storie) {
+//    StorieResponse storieResponse = new StorieResponse();
+//    storieResponse.setUser(storie.getUser().getName());
+//    storieResponse.setDateCreation(storie.getDateCreation());
+//    return storieResponse;
+//  }
 
 }

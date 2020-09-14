@@ -15,12 +15,12 @@ public class Storie {
   @Column(name="ID_STORIE", nullable = false)
   private Long id;
 
-  @ManyToOne(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
-  @JoinColumn(name="FK_ID_USER")
-  private User user;
-
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "DT_CREATION")
   private Date dateCreation = new Date();
+
+  @ManyToOne
+  @JoinColumn(name = "ID_USER")
+  private User user;
 
 }

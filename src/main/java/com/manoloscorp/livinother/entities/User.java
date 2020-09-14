@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_USER")
@@ -45,6 +46,9 @@ public class User implements Serializable {
   @MapsId
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private MedicalHistory medicalHistory;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<Storie> stories;
 
   public void setDataNascimento(String dataNascimento) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
