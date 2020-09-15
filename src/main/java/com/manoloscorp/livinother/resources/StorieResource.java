@@ -4,6 +4,7 @@ import com.manoloscorp.livinother.entities.Storie;
 import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.resources.payload.request.StorieRequest;
 import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
+import com.manoloscorp.livinother.resources.payload.response.StorieResponse;
 import com.manoloscorp.livinother.services.StorieServiceImpl;
 import com.manoloscorp.livinother.services.UserServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
@@ -12,8 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_HISTORIES, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,43 +37,51 @@ public class StorieResource {
   @GetMapping
   public ResponseEntity<?> getStories() {
     List<Storie> storieList = storiesService.getAllStories();
-    return new ResponseEntity<List>(storieList, HttpStatus.OK);
+
+    List<StorieResponse> storieResponseList = storieList
+            .stream()
+            .map(storie -> mapper.map(storie, StorieResponse.class))
+            .collect(Collectors.toList());
+
+    return new ResponseEntity<List>(storieResponseList, HttpStatus.OK);
+
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createStories(@PathVariable Long id, @RequestBody StorieRequest storieRequest) {
+  public ResponseEntity<?> createStories(@RequestBody StorieRequest storieRequest) {
 
-    if (!userService.existsUserById(id)){
+    Long idUser = storieRequest.getIdUser();
+
+    if (!userService.existsUserById(idUser)) {
       return ResponseEntity
               .badRequest()
               .body(new MessageResponse("Error: User is not found!"));
     }
 
-    User user = userService.getUserById(id);
-//    storieRequest.setUser(mapper.map(user, UserResponse.class));
+    User user = userService.getUserById(idUser);
 
-//    Storie storie = mapper.map(storieRequest, Storie.class);
+    Storie storie = mapper.map(storieRequest, Storie.class);
+    storie.setUser(user);
 
-//    storiesService.saveStorie(storie);
+    storiesService.saveStorie(storie);
 
-//    StorieResponse storieResponse = getStorieResponse(storie);
+    StorieResponse storieResponse = getStorieResponse(storie);
 
-//    URI uri = ServletUriComponentsBuilder
-//            .fromCurrentRequest()
-//            .path("/{id}")
-//            .buildAndExpand(storie.getId())
-//            .toUri();
+    URI uri = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(storie.getId())
+            .toUri();
 
-//    return ResponseEntity.created(uri).body(storieResponse);
-    return null;
+    return ResponseEntity.created(uri).body(storieResponse);
   }
 
-//  private StorieResponse getStorieResponse(Storie storie) {
-//    StorieResponse storieResponse = new StorieResponse();
-//    storieResponse.setUser(storie.getUser().getName());
-//    storieResponse.setDateCreation(storie.getDateCreation());
-//    return storieResponse;
-//  }
+  private StorieResponse getStorieResponse(Storie storie) {
+    StorieResponse storieResponse = new StorieResponse();
+    storieResponse.setUser(storie.getUser().getId());
+    storieResponse.setDateCreation(storie.getDateCreation());
+    return storieResponse;
+  }
 
 }

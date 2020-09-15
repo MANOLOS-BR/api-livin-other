@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 public class StorieResponse implements Serializable {
 
-  private int user;
+  private Long user;
   private Date dateCreation;
 
 }

@@ -9,6 +9,8 @@ import java.util.Date;
 @Data
 public class StorieRequest {
 
+  private Long idUser;
+
   @NotNull
   private Date dateCreation = new Date();
 
