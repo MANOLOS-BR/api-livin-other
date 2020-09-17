@@ -29,7 +29,7 @@ public class AuthResource {
     this.userDetailsServiceImpl = userDetailsServiceImpl;
   }
 
-  @PostMapping("/signin")
+  @PostMapping("/login")
   public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest authenticationRequest) throws Exception {
 
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
