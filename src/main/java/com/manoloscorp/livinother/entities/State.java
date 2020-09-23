@@ -14,6 +14,9 @@ public class State {
   @Column(name="ID_STATE", nullable = false)
   private Long id;
 
+  @Column(name = "NM_REGION")
+  private String region;
+
   @Column(name = "NM_STATE")
   private String name;
 

@@ -1,12 +1,9 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.Ischemia;
 import com.manoloscorp.livinother.entities.State;
-import com.manoloscorp.livinother.resources.payload.request.IschemiaRequest;
-import com.manoloscorp.livinother.services.IschemiaServiceImpl;
+import com.manoloscorp.livinother.resources.payload.request.StateRequest;
 import com.manoloscorp.livinother.services.StateServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
-import org.hibernate.stat.internal.StatisticsImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,7 +34,7 @@ public class StateResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createState(@RequestBody State stateRequest){
+  public ResponseEntity<?> createState(@RequestBody StateRequest stateRequest){
 
     State state = mapper.map(stateRequest, State.class);
 
