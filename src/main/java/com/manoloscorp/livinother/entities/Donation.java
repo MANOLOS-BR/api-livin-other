@@ -17,7 +17,7 @@ public class Donation {
   private Long year;
 
   @ManyToOne
-  private City city;
+  private State state;
 
   @Column(name="POTENTIAL_DONOR", nullable = false)
   private Long potentialDonor;
