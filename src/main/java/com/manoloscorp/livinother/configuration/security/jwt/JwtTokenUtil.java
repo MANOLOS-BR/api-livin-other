@@ -64,7 +64,8 @@ public class JwtTokenUtil implements Serializable {
             .setSubject(subject)
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-            .signWith(SignatureAlgorithm.HS512, secret).compact();
+            .signWith(SignatureAlgorithm.HS512, secret)
+            .compact();
   }
 
   //valida o token

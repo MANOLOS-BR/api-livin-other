@@ -44,7 +44,7 @@ public class User implements Serializable {
   private UserType userType;
 
   @MapsId
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToOne(cascade = CascadeType.ALL)
   private MedicalHistory medicalHistory;
 
   public void setDataNascimento(String dataNascimento) {
