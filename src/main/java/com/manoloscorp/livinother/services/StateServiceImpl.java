@@ -1,5 +1,6 @@
 package com.manoloscorp.livinother.services;
 
+import com.manoloscorp.livinother.entities.Donation;
 import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.State;
 import com.manoloscorp.livinother.repositories.FaqRepository;
@@ -22,6 +23,12 @@ public class StateServiceImpl implements StateService{
   @Override
   public List<State> getAllStates() {
     return stateRepository.findAll();
+  }
+
+  @Override
+  public State getStateById(Long id) throws NotFoundException {
+    Optional<State> state = stateRepository.findById(id);
+    return state.orElseThrow(() -> new NotFoundException(id));
   }
 
   @Override

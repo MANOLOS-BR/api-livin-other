@@ -16,4 +16,5 @@ public class RestConstants {
   public static final String RESOURCE_FAQS = "/faq";
   public static final String RESOURCE_ISCHEMIA = "/ischemia";
   public static final String RESOURCE_STATE = "/state";
+  public static final String RESOURCE_DONATION = "/donation";
 }
