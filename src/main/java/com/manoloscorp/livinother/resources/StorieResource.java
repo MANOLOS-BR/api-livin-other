@@ -3,7 +3,6 @@ package com.manoloscorp.livinother.resources;
 import com.manoloscorp.livinother.entities.Storie;
 import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.resources.payload.request.StorieRequest;
-import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
 import com.manoloscorp.livinother.resources.payload.response.StorieResponse;
 import com.manoloscorp.livinother.services.StorieServiceImpl;
 import com.manoloscorp.livinother.services.UserServiceImpl;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_HISTORIES, produces = MediaType.APPLICATION_JSON_VALUE)

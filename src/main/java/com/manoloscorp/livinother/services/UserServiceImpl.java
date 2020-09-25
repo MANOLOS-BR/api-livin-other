@@ -3,8 +3,6 @@ package com.manoloscorp.livinother.services;
 import com.manoloscorp.livinother.entities.User;
 import com.manoloscorp.livinother.repositories.UserRepository;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
-import com.manoloscorp.livinother.resources.payload.response.MessageResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

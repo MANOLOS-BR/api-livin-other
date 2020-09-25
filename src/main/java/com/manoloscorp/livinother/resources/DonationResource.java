@@ -38,7 +38,7 @@ public class DonationResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createIschemia(@RequestBody DonationRequest donationRequest){
+  public ResponseEntity<?> createDonation(@RequestBody DonationRequest donationRequest){
 
     State state = stateService.getStateById(donationRequest.getState());
 
@@ -54,6 +54,12 @@ public class DonationResource {
             .toUri();
 
     return ResponseEntity.created(uri).body(donationRequest);
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<?> updateDonation(@PathVariable Long id, @RequestBody Donation donation) {
+    donation = donationService.updateDonation(id, donation);
+    return ResponseEntity.ok().body(donation);
   }
 
 }

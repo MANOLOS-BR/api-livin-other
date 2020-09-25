@@ -1,9 +1,6 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.Donation;
-import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.State;
-import com.manoloscorp.livinother.repositories.FaqRepository;
 import com.manoloscorp.livinother.repositories.StateRepository;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;

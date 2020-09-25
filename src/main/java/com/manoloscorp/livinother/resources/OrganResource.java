@@ -1,10 +1,7 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.Organ;
-import com.manoloscorp.livinother.resources.payload.request.FaqRequest;
 import com.manoloscorp.livinother.resources.payload.request.OrganRequest;
-import com.manoloscorp.livinother.services.FaqServiceImpl;
 import com.manoloscorp.livinother.services.OrganServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;
 import org.modelmapper.ModelMapper;

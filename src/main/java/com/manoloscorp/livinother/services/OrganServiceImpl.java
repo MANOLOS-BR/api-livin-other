@@ -1,9 +1,7 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.*;
-import com.manoloscorp.livinother.repositories.IschemiaRepository;
+import com.manoloscorp.livinother.entities.Organ;
 import com.manoloscorp.livinother.repositories.OrganRepository;
-import com.manoloscorp.livinother.repositories.StateRepository;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 

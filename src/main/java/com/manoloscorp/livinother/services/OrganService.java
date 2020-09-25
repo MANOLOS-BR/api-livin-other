@@ -1,6 +1,5 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.Donation;
 import com.manoloscorp.livinother.entities.Organ;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 

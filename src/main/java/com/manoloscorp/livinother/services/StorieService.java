@@ -1,6 +1,5 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.Storie;
 import com.manoloscorp.livinother.entities.User;
 

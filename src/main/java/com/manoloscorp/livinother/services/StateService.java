@@ -1,6 +1,5 @@
 package com.manoloscorp.livinother.services;
 
-import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.State;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 

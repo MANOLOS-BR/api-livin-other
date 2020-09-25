@@ -1,8 +1,6 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.Faq;
 import com.manoloscorp.livinother.entities.Ischemia;
-import com.manoloscorp.livinother.resources.payload.request.FaqRequest;
 import com.manoloscorp.livinother.resources.payload.request.IschemiaRequest;
 import com.manoloscorp.livinother.services.IschemiaServiceImpl;
 import com.manoloscorp.livinother.shared.RestConstants;

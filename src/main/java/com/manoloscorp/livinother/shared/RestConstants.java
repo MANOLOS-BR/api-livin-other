@@ -18,4 +18,5 @@ public class RestConstants {
   public static final String RESOURCE_STATE = "/state";
   public static final String RESOURCE_DONATION = "/donation";
   public static final String RESOURCE_ORGAN = "/organ";
+  public static final String RESOURCE_TRANSPLANT = "/transplant";
 }
