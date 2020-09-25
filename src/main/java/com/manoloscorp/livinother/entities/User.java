@@ -8,7 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "TB_USER")
@@ -21,7 +24,7 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="ID_USER", nullable = false)
+  @Column(name = "ID_USER", nullable = false)
   private Long id;
 
   @Column(name = "NM_USER", nullable = false, length = 100)
@@ -33,7 +36,7 @@ public class User implements Serializable {
   @Column(name = "PASSWORD", nullable = false, length = 255)
   private String password;
 
-//  @Temporal(TemporalType.DATE)
+  //  @Temporal(TemporalType.DATE)
   @Column(name = "DT_BIRTH")
   private LocalDate dataNascimento;
 
@@ -46,6 +49,11 @@ public class User implements Serializable {
   @MapsId
   @OneToOne(cascade = CascadeType.ALL)
   private MedicalHistory medicalHistory;
+
+  @OneToMany(cascade = CascadeType.ALL,
+          fetch = FetchType.LAZY,
+          mappedBy = "user")
+  private List<Storie> stories = new ArrayList<>();
 
   public void setDataNascimento(String dataNascimento) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

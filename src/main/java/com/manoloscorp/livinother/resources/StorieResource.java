@@ -38,12 +38,12 @@ public class StorieResource {
   public ResponseEntity<?> getStories() {
     List<Storie> storieList = storiesService.getAllStories();
 
-    List<StorieResponse> storieResponseList = storieList
-            .stream()
-            .map(storie -> mapper.map(storie, StorieResponse.class))
-            .collect(Collectors.toList());
+//    List<StorieResponse> storieResponseList = storieList
+//            .stream()
+//            .map(storie -> mapper.map(storie, StorieResponse.class))
+//            .collect(Collectors.toList());
 
-    return new ResponseEntity<List>(storieResponseList, HttpStatus.OK);
+    return new ResponseEntity<List>(storieList, HttpStatus.OK);
 
   }
 
@@ -51,22 +51,18 @@ public class StorieResource {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<?> createStories(@RequestBody StorieRequest storieRequest) {
 
-    Long idUser = storieRequest.getIdUser();
+    User user = userService.getUserById(storieRequest.getIdUser());
 
-    if (!userService.existsUserById(idUser)) {
-      return ResponseEntity
-              .badRequest()
-              .body(new MessageResponse("Error: User is not found!"));
-    }
+    Storie storie = new Storie();
 
-    User user = userService.getUserById(idUser);
-
-    Storie storie = mapper.map(storieRequest, Storie.class);
+    storie.setDateCreation(storieRequest.getDateCreation());
     storie.setUser(user);
 
-    storiesService.saveStorie(storie);
+    user.getStories().add(storie);
 
-    StorieResponse storieResponse = getStorieResponse(storie);
+    storiesService.saveStorie(user);
+
+//    StorieResponse storieResponse = getStorieResponse(storie);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
@@ -74,7 +70,7 @@ public class StorieResource {
             .buildAndExpand(storie.getId())
             .toUri();
 
-    return ResponseEntity.created(uri).body(storieResponse);
+    return ResponseEntity.created(uri).body(storieRequest);
   }
 
   private StorieResponse getStorieResponse(Storie storie) {

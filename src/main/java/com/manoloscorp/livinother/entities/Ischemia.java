@@ -13,10 +13,14 @@ public class Ischemia {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String organ;
+  @MapsId
+  @OneToOne
+  private Organ organ;
 
+  @Column(nullable = false)
   private String timeIschemia;
 
+  @Column(name="SLG_UNIT", nullable = false)
   private String unit;
 
 }
