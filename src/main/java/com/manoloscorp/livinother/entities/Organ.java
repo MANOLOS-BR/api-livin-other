@@ -18,4 +18,10 @@ public class Organ {
   @Column(name="NM_ORGAN", nullable = false)
   private String name;
 
+  @Column(nullable = false)
+  private String timeIschemia;
+
+  @Column(name="SLG_UNIT", nullable = false)
+  private String unit;
+
 }

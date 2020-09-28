@@ -10,4 +10,11 @@ public class OrganRequest {
   @NotNull
   private String name;
 
+  @NotNull
+  private String timeIschemia;
+
+  @NotNull
+  private String unit;
+
+
 }

@@ -43,6 +43,7 @@ public class User implements Serializable {
   @Column(name = "DS_GENRE", nullable = false, length = 100)
   private String genero;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "TP_USER", nullable = false)
   private UserType userType;
 
