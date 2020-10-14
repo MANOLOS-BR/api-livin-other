@@ -64,12 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/leads").permitAll()
             .antMatchers(HttpMethod.POST, "/api/authentication/login").permitAll()
-            .antMatchers("/api/ischemia/**").permitAll()
-            .antMatchers("/api/state/**").permitAll()
-            .antMatchers("/api/faq/**").permitAll()
-            .antMatchers("/api/donation/**").permitAll()
-            .antMatchers("/api/stories/**").permitAll()
-            .antMatchers("/api/organ/**").permitAll()
             .anyRequest().authenticated();
 
     httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
