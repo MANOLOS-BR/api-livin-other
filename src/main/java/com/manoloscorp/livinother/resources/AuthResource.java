@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import static com.manoloscorp.livinother.shared.RestConstants.BEARER;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_AUTH, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,9 +38,9 @@ public class AuthResource {
 
     final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(authenticationRequest.getUsername());
 
-    final String token = jwtTokenUtil.generateToken(userDetails);
+    final String token = BEARER + jwtTokenUtil.generateToken(userDetails);
 
-    return ResponseEntity.ok(new JwtResponse("Bearer", token));
+    return ResponseEntity.ok(new JwtResponse(token));
   }
 
   @DeleteMapping("/logout")

@@ -1,5 +1,6 @@
 package com.manoloscorp.livinother.configuration.security.jwt;
 
+import com.manoloscorp.livinother.configuration.security.services.UserDetailsImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -54,7 +55,8 @@ public class JwtTokenUtil implements Serializable {
   //gera token para user
   public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
-    return doGenerateToken(claims, userDetails.getUsername());
+//    return doGenerateToken(claims, userDetails.getUsername());
+    return doGenerateToken(claims, ((UserDetailsImpl) userDetails).getEmail());
   }
 
   //Cria o token e define tempo de expiração pra ele
@@ -71,7 +73,7 @@ public class JwtTokenUtil implements Serializable {
   //valida o token
   public Boolean validateToken(String token, UserDetails userDetails) {
     final String username = getUsernameFromToken(token);
-    return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    return (username.equals(((UserDetailsImpl) userDetails).getEmail()) && !isTokenExpired(token));
   }
 
 }
