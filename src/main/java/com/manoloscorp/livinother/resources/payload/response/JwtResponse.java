@@ -8,6 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class JwtResponse {
 
+  private Long user;
+
   private String token;
 
 }

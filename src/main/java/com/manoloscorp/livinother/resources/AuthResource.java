@@ -1,6 +1,7 @@
 package com.manoloscorp.livinother.resources;
 
 import com.manoloscorp.livinother.configuration.security.jwt.JwtTokenUtil;
+import com.manoloscorp.livinother.configuration.security.services.UserDetailsImpl;
 import com.manoloscorp.livinother.configuration.security.services.UserDetailsServiceImpl;
 import com.manoloscorp.livinother.resources.payload.request.LoginRequest;
 import com.manoloscorp.livinother.resources.payload.response.JwtResponse;
@@ -37,10 +38,10 @@ public class AuthResource {
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
     final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(authenticationRequest.getUsername());
-
+    final Long user = ((UserDetailsImpl) userDetails).getId();
     final String token = BEARER + jwtTokenUtil.generateToken(userDetails);
 
-    return ResponseEntity.ok(new JwtResponse(token));
+    return ResponseEntity.ok(new JwtResponse(user, token));
   }
 
   @DeleteMapping("/logout")
