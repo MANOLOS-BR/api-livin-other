@@ -11,16 +11,16 @@ public class State {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="ID_STATE", nullable = false)
+  @Column(nullable = false)
   private Long id;
 
-  @Column(name = "NM_REGION")
+  @Column(nullable = false)
   private String region;
 
-  @Column(name = "NM_STATE")
+  @Column(nullable = false)
   private String name;
 
-  @Column(name = "SLG_STATE")
+  @Column(nullable = false)
   private String stateAcronym;
 
 }

@@ -12,16 +12,16 @@ public class Organ {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="ID_ORGAN", nullable = false)
+  @Column(nullable = false)
   private Long id;
 
-  @Column(name="NM_ORGAN", nullable = false)
+  @Column(nullable = false)
   private String name;
 
   @Column(nullable = false)
   private String timeIschemia;
 
-  @Column(name="SLG_UNIT", nullable = false)
+  @Column(nullable = false)
   private String unit;
 
 }

@@ -15,7 +15,7 @@ public class Transplant {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "FK_ID_ORGAN")
+  @JoinColumn(name = "fk_id_organ")
   private Organ organ;
 
   @Column(nullable = false)

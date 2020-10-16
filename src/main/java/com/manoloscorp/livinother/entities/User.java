@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "TB_USER")
@@ -24,27 +22,26 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID_USER", nullable = false)
+  @Column(nullable = false)
   private Long id;
 
-  @Column(name = "NM_USER", nullable = false, length = 100)
+  @Column(nullable = false, length = 100)
   private String name;
 
-  @Column(name = "EMAIL", nullable = false, length = 100)
+  @Column(nullable = false, length = 100)
   private String email;
 
-  @Column(name = "PASSWORD", nullable = false, length = 255)
+  @Column(nullable = false)
   private String password;
 
-  //  @Temporal(TemporalType.DATE)
-  @Column(name = "DT_BIRTH")
-  private LocalDate dataNascimento;
+  @Column(nullable = false)
+  private LocalDate birthDate;
 
-  @Column(name = "DS_GENRE", nullable = false, length = 100)
-  private String genero;
+  @Column(nullable = false)
+  private String genre;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "TP_USER", nullable = false)
+  @Column(nullable = false)
   private UserType userType;
 
   @MapsId
@@ -56,9 +53,9 @@ public class User implements Serializable {
           mappedBy = "user")
   private List<Storie> stories = new ArrayList<>();
 
-  public void setDataNascimento(String dataNascimento) {
+  public void setBirthDate(String birthDate) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate localDate = LocalDate.parse(dataNascimento, formatter);
-    this.dataNascimento = localDate;
+    LocalDate localDate = LocalDate.parse(birthDate, formatter);
+    this.birthDate = localDate;
   }
 }
