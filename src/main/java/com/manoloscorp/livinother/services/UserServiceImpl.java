@@ -1,6 +1,7 @@
 package com.manoloscorp.livinother.services;
 
 import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.entities.UserType;
 import com.manoloscorp.livinother.repositories.UserRepository;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,5 +60,15 @@ public class UserServiceImpl implements UserService {
   public Boolean existsUserById(Long id) {
     return userRepository.existsUserById(id);
   }
+
+  @Override
+  public Long countUserByUserType(UserType value) {
+    return userRepository.countUserByUserType(value);
+  }
+
+//  @Override
+//  public Long countUserByUserTypeReceptor() {
+//    return userRepository.countUserByUserType_Receptor();
+//  }
 
 }

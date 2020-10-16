@@ -15,17 +15,13 @@ public class Transplant {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "FK_ID_STATE")
-  private State state;
-
-  @MapsId
-  @OneToOne
+  @JoinColumn(name = "FK_ID_ORGAN")
   private Organ organ;
 
   @Column(nullable = false)
-  private Long year;
+  private Long queueAmount;
 
   @Column(nullable = false)
-  private Long qtdTransplant;
+  private Long numberTransplants;
 
 }

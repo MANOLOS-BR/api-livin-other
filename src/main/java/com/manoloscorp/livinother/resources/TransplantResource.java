@@ -41,33 +41,4 @@ public class TransplantResource {
     return new ResponseEntity<List>(transplantList, HttpStatus.OK);
   }
 
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createTransplant(@RequestBody TransplantRequest transplantRequest){
-
-    State state = stateService.getStateById(transplantRequest.getState());
-    Organ organ = organService.getOrganById(transplantRequest.getOrgan());
-
-    Transplant transplant = mapper.map(transplantRequest, Transplant.class);
-
-    transplant.setState(state);
-    transplant.setOrgan(organ);
-
-    transplantService.saveTransplant(transplant);
-
-    URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(transplant.getId())
-            .toUri();
-
-    return ResponseEntity.created(uri).body(transplantRequest);
-  }
-
-  @PutMapping(value = "/{id}")
-  public ResponseEntity<?> updateTransplant(@PathVariable Long id, @RequestBody Transplant transplant) {
-    transplant = transplantService.updateTransplant(id, transplant);
-    return ResponseEntity.ok().body(transplant);
-  }
-
 }

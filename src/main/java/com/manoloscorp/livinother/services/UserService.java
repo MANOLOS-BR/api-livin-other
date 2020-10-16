@@ -1,6 +1,7 @@
 package com.manoloscorp.livinother.services;
 
 import com.manoloscorp.livinother.entities.User;
+import com.manoloscorp.livinother.entities.UserType;
 import com.manoloscorp.livinother.resources.exceptions.NotFoundException;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface UserService {
   Boolean existsUserByEmail(String email);
 
   Boolean existsUserById(Long id);
+
+  Long countUserByUserType(UserType value);
 
 }
