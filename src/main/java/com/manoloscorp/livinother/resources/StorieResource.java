@@ -35,11 +35,6 @@ public class StorieResource {
   public ResponseEntity<?> getStories() {
     List<Storie> storieList = storiesService.getAllStories();
 
-//    List<StorieResponse> storieResponseList = storieList
-//            .stream()
-//            .map(storie -> mapper.map(storie, StorieResponse.class))
-//            .collect(Collectors.toList());
-
     return new ResponseEntity<List>(storieList, HttpStatus.OK);
 
   }
@@ -58,8 +53,6 @@ public class StorieResource {
     user.getStories().add(storie);
 
     storiesService.saveStorie(user);
-
-//    StorieResponse storieResponse = getStorieResponse(storie);
 
     URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest()

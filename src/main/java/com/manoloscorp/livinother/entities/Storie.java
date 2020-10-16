@@ -16,12 +16,11 @@ public class Storie {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @Column(nullable = false)
+  @JoinColumn(name = "fk_id_user", nullable = false)
   private User user;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date dateCreation = new Date();
-
 
 }
