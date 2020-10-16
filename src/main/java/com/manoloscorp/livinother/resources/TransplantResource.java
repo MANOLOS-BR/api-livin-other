@@ -1,9 +1,6 @@
 package com.manoloscorp.livinother.resources;
 
-import com.manoloscorp.livinother.entities.Organ;
-import com.manoloscorp.livinother.entities.State;
 import com.manoloscorp.livinother.entities.Transplant;
-import com.manoloscorp.livinother.resources.payload.request.TransplantRequest;
 import com.manoloscorp.livinother.services.OrganServiceImpl;
 import com.manoloscorp.livinother.services.StateServiceImpl;
 import com.manoloscorp.livinother.services.TransplantServiceImpl;
@@ -13,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController

@@ -14,9 +14,9 @@ public class UserResponse implements Serializable {
 
   private String email;
 
-  private LocalDate dataNascimento;
+  private LocalDate birthDate;
 
-  private String genero;
+  private String genre;
 
   private UserType userType;
 

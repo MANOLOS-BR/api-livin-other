@@ -22,7 +22,6 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(nullable = false)
   private Long id;
 
   @Column(nullable = false, length = 100)
@@ -44,7 +43,6 @@ public class User implements Serializable {
   @Column(nullable = false)
   private UserType userType;
 
-  @MapsId
   @OneToOne(cascade = CascadeType.ALL)
   private MedicalHistory medicalHistory;
 

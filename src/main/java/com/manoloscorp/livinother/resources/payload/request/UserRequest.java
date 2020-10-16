@@ -21,10 +21,10 @@ public class UserRequest implements Serializable {
   private String password;
 
   @NotNull
-  private LocalDate dataNascimento;
+  private LocalDate birthDate;
 
   @NotNull
-  private String genero;
+  private String genre;
 
   @NotNull
   private UserType userType;
